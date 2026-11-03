@@ -2,13 +2,9 @@
 
 OrangeFox R10 device configuration for the Qualcomm MSM8937 / Adreno 308 MediaPad T3 10.
 
-## Status
-
-The recovery image built from this tree successfully booted on the connected Huawei MediaPad T3 10 (codename `agassi`, hardware version W09). The supplied firmware identifies itself as L09; the recovery was confirmed working on the attached W09 unit.
-
 ## Build
 
-From an OrangeFox R10 source checkout:
+From the OrangeFox R10 source checkout:
 
 ```sh
 export ALLOW_MISSING_DEPENDENCIES=true
@@ -18,10 +14,15 @@ lunch omni_agassi-eng
 mka recoveryimage
 ```
 
-The local trimmed checkout also needed compatibility defaults for the VTS and BPF packages in `test/vts/Android.bp` and `external/bcc/Android.bp`; those source-checkout adjustments are outside this device tree.
+The final outputs are `out/target/product/agassi/OrangeFox-Unofficial-agassi.img`
+and `out/target/product/agassi/OrangeFox-Unofficial-agassi.zip`. This trimmed
+source checkout also needs the VTS and BPF fallback defaults in `test/vts/Android.bp`
+and `external/bcc/Android.bp`; the OrangeFox manifest omits their original providers.
 
-The output files are `out/target/product/agassi/OrangeFox-Unofficial-agassi.img` and `out/target/product/agassi/OrangeFox-Unofficial-agassi.zip`.
+## Device evidence and variant note
 
-## Kernel and DTB
+The connected tablet reports codename `agassi`, board platform `msm8937`, hardware version `W09`, Android 7.0 (SDK 24), and an 800 × 1280 panel at density 200. The supplied GPT lists 80 MiB boot and recovery partitions and a 3.47 GiB system partition. ADB reports a 9.65 GB userdata block partition on the attached 16 GB unit; the firmware layout grows userdata to fill the remaining device space.
 
-`prebuilt/kernel.gz-dtb` preserves the stock gzip kernel payload with its Qualcomm DTB appended. BoardConfig passes it as one prebuilt kernel image; do not provide a separate DT image.
+The supplied `LLD0058_SPF.2.0_2.0.201.1_T37C0215/Maincode` package identifies itself as Android 7.0 and hardware version `L09`. Its `recovery.img` contains the same kernel and DTB binaries already in this device directory. The tree keeps those supplied prebuilt assets, but the connected tablet reports `W09`; confirm recovery boot compatibility for that hardware variant before flashing. The firmware package and attached device do not report Android 7.1.2.
+
+The stock boot image stores the Qualcomm DTB appended to the gzip kernel payload. `prebuilt/kernel.gz-dtb` preserves that exact stock payload; the tree does not pass a separate `--dt` image. The filesystem table includes the distinct `vendor`, `product`, and `cust` partitions from the GPT and keeps data-encryption-footer support enabled for the stock FDE layout.
