@@ -27,15 +27,18 @@ hardware version `L09`; recovery has already booted successfully on the connecte
 W09 tablet.
 
 The stock recovery ramdisk is embedded in `Maincode/recovery.img`. Its `init.rc`
-was extracted and used as the reference for the OrangeFox recovery init and the
-USB setup. The stock recovery fstab identifies `/data` as ext4, so the recovery
-fstab exposes it once as ext4.
+was extracted and used as a reference for the OrangeFox init and USB setup. The
+existing working W09 TWRP image in `twrp-new-agassi.img` uses f2fs for `/data`;
+this W09 tree follows that filesystem and exposes the partition only once. The
+separate L09 firmware recovery fstab lists ext4, so it is not the filesystem
+reference for the attached W09 tablet.
 
 ## Decryption and proprietary files
 
 Data decryption is disabled. The recovery tree does not include the QSEE daemon,
 QSEE/keymaster/secure-UI libraries, or Qualcomm decryption packages. Encrypted
-`/data` cannot be decrypted in this recovery. The stock boot kernel with its
+`/data` cannot be decrypted in this recovery. The dedicated vendor partition is
+configured at `/vendor`, matching the tablet GPT and working TWRP ramdisk. The stock boot kernel with its
 appended DTB remains at `prebuilt/kernel.gz-dtb`; `BoardConfig.mk` uses this
 combined image because Huawei's bootloader expects the DTB appended to the
 gzip kernel payload. The unused split `kernel` and `kernel_dtb` copies were removed.
