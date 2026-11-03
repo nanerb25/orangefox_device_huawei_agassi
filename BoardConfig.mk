@@ -90,9 +90,11 @@ RECOVERY_SDCARD_ON_DATA := true
 RECOVERY_GRAPHICS_USE_LINELENGTH := true
 BOARD_SUPPRESS_SECURE_ERASE := true
 
-# Data uses legacy footer-based full-disk encryption on stock firmware.
-TW_INCLUDE_CRYPTO := true
-BOARD_USES_QCOM_DECRYPTION := true
+# Recovery data decryption is intentionally disabled; crypto support adds
+# incompatible QSEE and vendor dependencies on this device.
+TW_INCLUDE_CRYPTO :=
+TW_INCLUDE_JB_CRYPTO := false
+TW_INCLUDE_L_CRYPTO := false
 
 # TWRP / OrangeFox UI
 TW_THEME := portrait_hdpi

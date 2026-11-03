@@ -20,12 +20,7 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 
 # Charger
 PRODUCT_PACKAGES += \
-    charger_res_images \
-    qcom_decrypt
-
-# Encryption
-PRODUCT_PACKAGES += \
-    libcryptfs_hw
+    charger_res_images
 
 # Kernel
 #PRODUCT_COPY_FILES += \

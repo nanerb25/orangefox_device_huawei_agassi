@@ -10,8 +10,7 @@
 /cust           ext4  /dev/block/bootdevice/by-name/cust         flags=display="Cust";backup=1;wipeingui
 /cust_image     emmc  /dev/block/bootdevice/by-name/cust         flags=display="Cust Image";backup=1;flashimg=1
 
-/data           ext4  /dev/block/bootdevice/by-name/userdata     flags=display="Data";backup=1;wipeingui;encryptable=footer;length=-16384;formattable
-/data           f2fs  /dev/block/bootdevice/by-name/userdata     flags=display="Data";backup=1;wipeingui;encryptable=footer;length=-16384;formattable;fsflags="nosuid,nodev,noatime,inline_xattr,data_flush"
+/data           ext4  /dev/block/bootdevice/by-name/userdata     flags=display="Data";backup=1;wipeingui;formattable
 /cache          ext4  /dev/block/bootdevice/by-name/cache        flags=display="Cache";backup=1;wipeingui;formattable
 /persist        ext4  /dev/block/bootdevice/by-name/persist      flags=display="Persist";backup=1
 /persist_image  emmc  /dev/block/bootdevice/by-name/persist      flags=display="Persist Image";backup=1;flashimg=1
